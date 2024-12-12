@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="e">images/QDUzAz9yOs.jpg</file>
+        <file alias="ee">images/QDUzAz9yOs.ico</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="s">styles/styles.qss</file>
+    </qresource>
+</RCC>
