@@ -279,19 +279,19 @@ void MainWindow::EmployeeWorkPageDraw()
     emAccFindCarB = new EmAccFindCarB(EmployeePage);
     emPactFindB = new  EmPactFindB (EmployeePage);
 
-    QSignalMapper* emWorkPageSM = new QSignalMapper(EmployeePage);
-    emWorkPageSM->setMapping(emCarModelNameLE , 1);
-    emWorkPageSM->setMapping(emCarManufLE, 2);
-    emWorkPageSM->setMapping(emEngineCapLE , 3);
-    emWorkPageSM->setMapping(emMaxSpeedLE, 4);
-    emWorkPageSM->setMapping(emGenNumLE, 5);
-    emWorkPageSM->setMapping(emHorsePowLE, 6);
-    emWorkPageSM->setMapping(emCostLE, 7);
-    emWorkPageSM->setMapping(emMileAgeLE, 8);
-    emWorkPageSM->setMapping(emNumOrderLE, 9);
-    emWorkPageSM->setMapping(emNumPactLE, 10);
-    emWorkPageSM->setMapping(emAccFindCarB, 11);
-    emWorkPageSM->setMapping(emPactFindB, 12);
+    QSignalMapper* emWorkPageSM = new QSignalmapper(EmployeePage);
+    emWorkPageSM->setMaping(emCarModelNameLE , 1);
+    emWorkPageSM->setMaping(emCarManufLE, 2);
+    emWorkPageSM->setMaping(emEngineCapLE , 3);
+    emWorkPageSM->setMaping(emMaxSpeedLE, 4);
+    emWorkPageSM->setMaping(emGenNumLE, 5);
+    emWorkPageSM->setMaping(emHorsePowLE, 6);
+    emWorkPageSM->setMaping(emCostLE, 7);
+    emWorkPageSM->setMaping(emMileAgeLE, 8);
+    emWorkPageSM->setMaping(emNumOrderLE, 9);
+    emWorkPageSM->setMaping(emNumPactLE, 10);
+    emWorkPageSM->setMaping(emAccFindCarB, 11);
+    emWorkPageSM->setMaping(emPactFindB, 12);
 
     connect(emCarModelNameLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
     connect(emCarManufLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
