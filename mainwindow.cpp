@@ -163,7 +163,7 @@ void MainWindow::RegistrationPageDraw()
     regLastNameLineEdit = new RegLastNameLineEdit(this);
     regFirstNameLineEdit = new RegFirstNameLineEdit(this);
     regMiddleNameLineEdit = new RegMiddleNameLineEdit(this);
-    regEmailLineEdit= new RegEmailLineEditLineEdit(this);
+    regEmailLineEdit= new RegEmailLineEdit(this);
     regPasswordLineEdit = new RegPasswordLineEdit(this);
     regBackButton = new BackButton(this);
     signalMapperReg = new QSignalMapper(this);
@@ -254,6 +254,83 @@ void MainWindow::ForgotPassPageDraw()
     connect(forgotPEnterButton, &QPushButton::clicked, forgotPSignalMapper, QOverload<>::of(&QSignalMapper::map));
     connect(forgotPBackButton, &QPushButton::clicked, forgotPSignalMapper, QOverload<>::of(&QSignalMapper::map));
     connect(forgotPSignalMapper,  &QSignalMapper::mappedInt, this, &MainWindow::ForgotPassPHandleItems);
+}
+
+void MainWindow::EmployeeWorkPageDraw()
+{
+    setMinimumSize(800, 600);
+    QWidget* EmployeePage = new QWidget(this);
+    EmployeePage->setFocusPolicy(Qt::StrongFocus);
+    QPixmap pixmap(":/images/e");
+    emWorkPageLayout =  new QVBoxLayout(EmployeePage);
+    Logo* emPageLogo = new Logo(EmployeePage, pixmap);
+
+    emWorkPageMainLabel = new EmWorkPageMainLabel(EmployeePage);
+    emCarModelNameLE = new EmCarModelNameLE(EmployeePage) ;
+    emCarManufLE = new EmCarManufLE(EmployeePage);
+    emEngineCapLE = new EmEngineCapLE(EmployeePage);
+    emMaxSpeedLE = new EmMaxSpeedLE(EmployeePage);
+    emGenNumLE = new EmGenNumLE(EmployeePage);
+    emHorsePowLE = new EmHorsePowLE(EmployeePage);
+    emCostLE= new EmCostLE(EmployeePage);
+    emMileAgeLE = new EmMileAgeLE(EmployeePage);
+    emNumOrderLE = new EmNumOrderLE(EmployeePage);
+    emNumPactLE = new EmNumPactLE(EmployeePage);
+    emAccFindCarB = new EmAccFindCarB(EmployeePage);
+    emPactFindB = new  EmPactFindB (EmployeePage);
+
+    QSignalMapper* emWorkPageSM = new QSignalmapper(EmployeePage);
+    emWorkPageSM->setMaping(emCarModelNameLE , 1);
+    emWorkPageSM->setMaping(emCarManufLE, 2);
+    emWorkPageSM->setMaping(emEngineCapLE , 3);
+    emWorkPageSM->setMaping(emMaxSpeedLE, 4);
+    emWorkPageSM->setMaping(emGenNumLE, 5);
+    emWorkPageSM->setMaping(emHorsePowLE, 6);
+    emWorkPageSM->setMaping(emCostLE, 7);
+    emWorkPageSM->setMaping(emMileAgeLE, 8);
+    emWorkPageSM->setMaping(emNumOrderLE, 9);
+    emWorkPageSM->setMaping(emNumPactLE, 10);
+    emWorkPageSM->setMaping(emAccFindCarB, 11);
+    emWorkPageSM->setMaping(emPactFindB, 12);
+
+    connect(emCarModelNameLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emCarManufLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emEngineCapLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emMaxSpeedLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emGenNumLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emHorsePowLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emCostLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emMileAgeLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emNumPactLE, &QLineEdit::editingFinished, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emPactFindB, &QPushButton::clicked, emWorkPageSM, QOverload<>::of(&QSignalMapper::map));
+    connect(emWorkPageSM, &QSignalMapper::mappedInt, ) //Посмотреть родительский объект (this, или виджет страницы)
+
+
+
+
+
+    emWorkPageLayout->addWidget(emPageLogo, 0, Qt::AlignCenter);
+    forgotPLayout->addSpacing(45);
+    emWorkPageLayout->addWidget(emWorkPageMainLabel, 0, Qt::AlignCenter);
+    forgotPLayout->addSpacing(75);
+    emWorkPageLayout->addWidget(emCarModelNameLE, 0, Qt::AlignLeft);
+    forgotPLayout->addSpacing(5);
+    emWorkPageLayout->addWidget(emEngineCapLE, 0, Qt::AlignLeft);
+    forgotPLayout->addSpacing(5);
+    emWorkPageLayout->addWidget(emMaxSpeedLE, 0, Qt::AlignLeft);
+    forgotPLayout->addSpacing(5);
+    emWorkPageLayout->addWidget(emGenNumLE, 0, Qt::AlignLeft);
+    forgotPLayout->addSpacing(5);
+    emWorkPageLayout->addWidget(emHorsePowLE, 0, Qt::AlignLeft);
+    forgotPLayout->addSpacing(5);
+
+    forgotPLayout->addSpacing(5);
+
+    forgotPLayout->addSpacing(5);
+
+    forgotPLayout->addSpacing(5);
+
+    stackedLayout->addWidget(EmployeePage);
 }
 
 void MainWindow::RegPHandleItems(const int id)

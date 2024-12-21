@@ -13,7 +13,7 @@
 #include <QFuture>
 #include "QMessageBox"
 #include <QFuture>
-#include <QPromise>
+//#include <QPromise>
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
 #include "qapplication.h"

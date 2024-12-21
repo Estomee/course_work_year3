@@ -17,6 +17,7 @@ Password::Password(QWidget *parent): QLineEdit(parent)
     this->setMaximumWidth(300);
     this->setMinimumHeight(30);
     this->setPlaceholderText("Пароль");
+    this->setToolTip("Пароль дожен содержать 6 символов и @ или #");
 }
 
 Logo::Logo(QWidget* parent, QPixmap& pixmap): QLabel(parent)
@@ -129,7 +130,7 @@ RegMiddleNameLineEdit::RegMiddleNameLineEdit(QWidget* parent): QLineEdit(parent)
     this->setPlaceholderText("Отчество");
 }
 
-RegEmailLineEditLineEdit::RegEmailLineEditLineEdit(QWidget* parent):  QLineEdit(parent)
+RegEmailLineEdit::RegEmailLineEdit(QWidget* parent):  QLineEdit(parent)
 {
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     this->setMinimumWidth(300);
@@ -138,12 +139,8 @@ RegEmailLineEditLineEdit::RegEmailLineEditLineEdit(QWidget* parent):  QLineEdit(
     this->setPlaceholderText("Электронная почта");
 }
 
-RegPasswordLineEdit::RegPasswordLineEdit(QWidget* parent): QLineEdit(parent)
+RegPasswordLineEdit::RegPasswordLineEdit(QWidget* parent): Password(parent)
 {
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    this->setMinimumWidth(300);
-    this->setMaximumWidth(300);
-    this->setMinimumHeight(30);
     this->setPlaceholderText("Пароль");
 }
 
@@ -157,10 +154,10 @@ ForgotPMainLabel::ForgotPMainLabel(QWidget* parent): RegMainLabel(parent)
 ForgotPEmailLEdit::ForgotPEmailLEdit(QWidget* parent): Password(parent)
 {
     this->setPlaceholderText("Электронная почта");
-    this->setToolTip("Введи почту");
+    this->setToolTip("Введите почту");
 }
 
-ForgotPTokLEdit::ForgotPTokLEdit(QWidget* parent): Password(parent)
+ForgotPTokLEdit::ForgotPTokLEdit(QWidget* parent): Login(parent)
 {
     this->setPlaceholderText("Токен для восстановления пароля");
 }
@@ -175,6 +172,71 @@ ForgotPEnterButton::ForgotPEnterButton(QWidget* parent): AuthPushButton(parent)
     this->setText("Выполнить");
 }
 
+//Виджеты окна  сотрудников
+EmWorkPageMainLabel::EmWorkPageMainLabel(QWidget* parent): RegMainLabel(parent)
+{
+    this->setText("Сотрудники");
+}
+
+EmCarModelNameLE::EmCarModelNameLE(QWidget* parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Название модели");
+}
+
+EmCarManufLE::EmCarManufLE(QWidget* parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Производитель");
+}
+
+EmEngineCapLE::EmEngineCapLE(QWidget* parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Объём двигателя");
+}
+
+EmMaxSpeedLE::EmMaxSpeedLE(QWidget* parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Максимальная скорость");
+}
+
+EmGenNumLE::EmGenNumLE(QWidget* parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Номер поколения");
+}
+
+EmHorsePowLE::EmHorsePowLE(QWidget *parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("ЛС");
+}
+
+EmCostLE::EmCostLE(QWidget *parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Стоимость");
+}
+
+EmMileAgeLE::EmMileAgeLE(QWidget *parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Пробег");
+}
+
+EmNumOrderLE::EmNumOrderLE(QWidget *parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Номер заказа");
+}
+
+EmNumPactLE::EmNumPactLE(QWidget *parent): EmAuthCodeEnter(parent)
+{
+    this->setPlaceholderText("Номер договора");
+}
+
+EmAccFindCarB::EmAccFindCarB(QWidget *parent): AuthPushButton(parent)
+{
+    this->setText("Выполнить");
+}
+
+EmPactFindB::EmPactFindB(QWidget *parent): AuthPushButton(parent)
+{
+    this->setText("Выполнить");
+}
 //Многофункциональные виджеты
 BackButton::BackButton(QWidget* parent): AuthPushButton(parent)
 {

@@ -96,11 +96,29 @@ class MainWindow : public QMainWindow
         QString forgotPRecToken;
         QString forgotPNewPassword;
 
+        //Виджеты и обработка данных для рабочего окна сотрудников
+        QVBoxLayout* emWorkPageLayout;
+        QLabel* emWorkPageMainLabel;
+        QLineEdit* emCarModelNameLE;
+        QLineEdit* emCarManufLE;
+        QLineEdit* emEngineCapLE;
+        QLineEdit* emMaxSpeedLE;
+        QLineEdit* emGenNumLE;
+        QLineEdit* emHorsePowLE;
+        QLineEdit* emCostLE;
+        QLineEdit* emMileAgeLE;
+        QLineEdit* emNumOrderLE;
+        QLineEdit* emNumPactLE;
+        QPushButton* emAccFindCarB;
+        QPushButton*  emPactFindB;
+        //TODO: Изменить родительский объект при создании объектов страниц страниц
+
         //Методы для отрисовки страниц
         void AuthPageDraw();
         void EmployeePageDraw();
         void RegistrationPageDraw();
         void ForgotPassPageDraw();
+        void EmployeeWorkPageDraw();
 
         //Регулярные выражения для обработки данных
         QRegularExpression emailRegex{"\b[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}$"};

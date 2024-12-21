@@ -108,13 +108,13 @@ class RegMiddleNameLineEdit: public QLineEdit
         explicit RegMiddleNameLineEdit(QWidget* parent);
 };
 
-class RegEmailLineEditLineEdit: public QLineEdit
+class RegEmailLineEdit: public QLineEdit
 {
     public:
-        explicit RegEmailLineEditLineEdit(QWidget* parent);
+        explicit RegEmailLineEdit(QWidget* parent);
 };
 
-class RegPasswordLineEdit: public QLineEdit
+class RegPasswordLineEdit: public Password
 {
     public:
         explicit RegPasswordLineEdit(QWidget* parent);
@@ -133,7 +133,7 @@ class ForgotPEmailLEdit: public Password
         explicit ForgotPEmailLEdit(QWidget* parent);
 };
 
-class ForgotPTokLEdit: public Password
+class ForgotPTokLEdit: public Login
 {
     public:
         explicit ForgotPTokLEdit(QWidget* parent);
@@ -149,6 +149,86 @@ class ForgotPEnterButton: public AuthPushButton
 {
     public:
         explicit ForgotPEnterButton(QWidget* parent);
+};
+
+//Виджеты окна  сотрудников
+
+class EmWorkPageMainLabel: public RegMainLabel
+{
+    public:
+        explicit EmWorkPageMainLabel(QWidget* parent);
+};
+
+class EmCarModelNameLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmCarModelNameLE(QWidget* parent);
+};
+
+class EmCarManufLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmCarManufLE(QWidget* parent);
+};
+
+class EmEngineCapLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmEngineCapLE(QWidget* parent);
+};
+
+class EmMaxSpeedLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmMaxSpeedLE(QWidget* parent);
+};
+
+class EmGenNumLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmGenNumLE(QWidget* parent);
+};
+
+class EmHorsePowLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmHorsePowLE(QWidget* parent);
+};
+
+class EmCostLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmCostLE(QWidget* parent);
+};
+
+class EmMileAgeLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmMileAgeLE(QWidget* parent);
+};
+
+class EmNumOrderLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmNumOrderLE(QWidget* parent);
+};
+
+class EmNumPactLE: public EmAuthCodeEnter
+{
+    public:
+        explicit EmNumPactLE(QWidget* parent);
+};
+
+class EmAccFindCarB: public AuthPushButton
+{
+    public:
+        explicit EmAccFindCarB(QWidget* parent);
+};
+
+class EmPactFindB: public AuthPushButton
+{
+    public:
+        explicit EmPactFindB(QWidget* parent);
 };
 
 //Многофункциональные виджеты

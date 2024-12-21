@@ -35,3 +35,13 @@ QLabel#otherAuthLabels
      text-decoration: none;
      font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
 }
+
+QToolTip
+{
+    color: #ffffff;
+    background-color: #333333;
+    border: 1px solid #ffffff;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 0px;
+}
