@@ -13,10 +13,10 @@
 #include <QFuture>
 #include "QMessageBox"
 #include <QFuture>
-//#include <QPromise>
+#include <QPromise>
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
-#include "qapplication.h"
+#include <QSqlRecord>
 #include "querytask.h"
 
 
@@ -32,6 +32,7 @@ class DatabaseInterfaceConnection //Интерфейс для класса по�
                                           const QString& dbPasword ,
                                           const int& dbPort) =0;
         virtual ~DatabaseInterfaceConnection() = default;
+
 };
 
 class ConnectionPool //ConnectionPool для работы с подключениями
@@ -39,7 +40,6 @@ class ConnectionPool //ConnectionPool для работы с подключен�
     private:
         void preformQuerry();
         virtual DatabaseInterfaceConnection* FactoryConnection() = 0;
-        void someLogics();
         QSqlDatabase getConnection();
         void releaseConnection(QSqlDatabase connection);
         static QVector<QSqlDatabase> availableConnections;
@@ -53,20 +53,20 @@ class ConnectionPool //ConnectionPool для работы с подключен�
         QString dbPassword;
         int dbPort;
 
-
-
     public:
-        QSqlQuery executeQuery(const QString& query);
-        void executeQueryAsync(const QString& query, QObject* receiver, const char* slot);
+        QSqlQuery executeQuery(const QString& query, const QVariantMap& parameters);
+        void executeQueryAsync(const QString& query, QObject* receiver, const char* slot, const QVariantMap& parameters );
         void initializePool();
         virtual ~ConnectionPool();
         ConnectionPool();
+
 };
 
 class ConcreteDbCConnection: public ConnectionPool //DatabaseConnection Creator
 {
     private:
         DatabaseInterfaceConnection* FactoryConnection() override;
+
 };
 
 class DatabaseConnection: public DatabaseInterfaceConnection

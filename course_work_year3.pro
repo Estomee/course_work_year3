@@ -1,6 +1,7 @@
 QT += \
     core gui \
     sql \
+    core network
 
 
 
@@ -17,17 +18,19 @@ SOURCES += \
     database.cpp \
     main.cpp \
     mainwindow.cpp \
-    querytask.cpp
+    querytask.cpp \
+    secureconfig.cpp
 
 HEADERS += \
     auth_inheritance.h \
     database.h \
     mainwindow.h \
-    querytask.h
+    querytask.h\
+    smtpmime_global.h \
+    secureconfig.h
 
 FORMS += \
     mainwindow.ui
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

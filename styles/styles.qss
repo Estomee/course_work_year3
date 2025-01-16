@@ -11,7 +11,10 @@ QPushButton#generalButton:pressed
 {
     background-color: #404040;
 }
-
+QPushButton#generalButton:focus
+{
+    outline: none;
+}
 QLineEdit
 {
     border: 0.5px solid  #000000;
@@ -45,3 +48,27 @@ QToolTip
     font-size: 12px;
     border-radius: 0px;
 }
+QHeaderView::section
+{
+    background-color: #fcfcfc;
+    font-family: Century Gothic;
+}
+QTreeView
+{
+    border: 1px solid;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+}
+
+QTreeView::item::selected
+{
+    background-color: #17202a ;
+    color: #fff;
+}
+
+QCheckBox
+{
+    font-family: Century Gothic;
+}
+
+
+

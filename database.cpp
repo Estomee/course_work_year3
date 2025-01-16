@@ -24,10 +24,13 @@ QSqlDatabase DatabaseConnection::createConnection(
     db.setPassword(dbPassword);
     db.setPort(dbPort);
 
-    if (!db.open()) //Нужно доделать момент, когда не получается подключиться к серверу (на 09.12.24 программа просто завершает свою работу аварийно
+    if (!db.open())
     {
-        QMessageBox::critical(nullptr, "Ошибка", "Тут текст");
-        QCoreApplication::quit();
+
+        QTimer::singleShot(5000, [=]()
+        {
+            createConnection(dbHostName, dbName, userName, dbPassword, dbPort);
+        });
     }
     else
     {
@@ -43,10 +46,10 @@ DatabaseInterfaceConnection* ConcreteDbCConnection::FactoryConnection() //Воз
 
 ConnectionPool::ConnectionPool()
 {
-    dbHostName = "172.20.7.54";
-    dbName = "db2091_20";
-    userName = "st2091";
-    dbPassword = "pwd_2091";
+    dbHostName = "localhost";
+    dbName = "postgres";
+    userName = "postgres";
+    dbPassword = "Lakys2004";
     dbPort = 5432;
 }
 
@@ -54,21 +57,26 @@ ConnectionPool::~ConnectionPool()
 {
     for (QSqlDatabase& db : availableConnections)
     {
+        const QString connectionName = db.connectionName();
         if (db.isOpen())
         {
             db.close();
         }
-        QSqlDatabase::removeDatabase(db.connectionName());
+        db = QSqlDatabase(); //Зануляем объект
+        QSqlDatabase::removeDatabase(connectionName);
     }
 
     for (QSqlDatabase& db : usedConnections)
     {
+        const QString connectionName = db.connectionName();
         if (db.isOpen())
         {
             db.close();
         }
-        QSqlDatabase::removeDatabase(db.connectionName());
+        db = QSqlDatabase();
+        QSqlDatabase::removeDatabase(connectionName);
     }
+
 }
 
 QSqlDatabase ConnectionPool::getConnection()
@@ -105,21 +113,30 @@ void ConnectionPool::releaseConnection(QSqlDatabase connection) //Освобож
     connectionAvailable.wakeOne();
 }
 
-QSqlQuery ConnectionPool::executeQuery(const QString& query) //Выполнение запроса
+QSqlQuery ConnectionPool::executeQuery(const QString& query, const QVariantMap& parameters) //Выполнение запроса
 {
     QSqlDatabase connection = getConnection();
+    if (!connection.isOpen()) {
+        qDebug() << "Database connection is not open";
+    }
+
     QSqlQuery result(connection);
 
-    result.exec(query);
+        result.prepare(query);
+        for (auto it = parameters.constBegin(); it != parameters.constEnd(); ++it)
+        {
+            result.bindValue(it.key(), it.value());
+        }
+        result.exec();
 
     releaseConnection(connection);
     return result;
 }
 
-void ConnectionPool::executeQueryAsync(const QString& query, QObject* receiver, const char* slot) //Бизнесс-логика выполнения запросов в многопоточном режиме
+void ConnectionPool::executeQueryAsync(const QString& query, QObject* receiver, const char* slot, const QVariantMap& parameters) //Бизнесс-логика выполнения запросов в многопоточном режиме
 {
-    QueryTask* task = new QueryTask(this, query);
-    QObject::connect(task, SIGNAL(queryCompleted(QSqlQuery)), receiver, slot);
+    QueryTask* task = new QueryTask(this, query, parameters);
+    QObject::connect(task, SIGNAL(queryCompleted(QSqlQuery)), receiver, slot); //Объект получения - receiver, slot - фукнция, которая будет вызвана при испускании сигнала
     QThreadPool* threadPool = QThreadPool::globalInstance();
     int threadCount = QThread::idealThreadCount();
     threadPool->setMaxThreadCount(threadCount);
@@ -130,17 +147,15 @@ void ConnectionPool::initializePool() //Инициализация пула со
 {
     QList<QFuture<void>> futures;
     const int numConnections = 5;
-
     for (int i = 0; i < numConnections; i++)
     {
         futures.append(QtConcurrent::run([this, i]() {
             DatabaseInterfaceConnection* connection = this->FactoryConnection();
             QString connectionName = QString("connection_%1").arg(i + 1);
-            
             QMutexLocker locker(&mutex); // Защищаем создание соединения
             QSqlDatabase newDb = QSqlDatabase::addDatabase("QPSQL", connectionName);
             locker.unlock(); // Разблокируем мьютекс после создания соединения
-            
+
             newDb = connection->createConnection(dbHostName, dbName, userName, dbPassword, dbPort);
             newDb.setConnectOptions("connect_timeout=5"); // Добавляем таймаут
 
@@ -161,18 +176,3 @@ void ConnectionPool::initializePool() //Инициализация пула со
     }
 }
 
-void ConnectionPool::someLogics() //Проверить нужно ли мне в отдельном треде делать инициализацию
-{
-    // Создаем поток для инициализации пула подключений
-    QThread* initThread = QThread::create([this]()
-    {
-        initializePool();
-    });
-
-    // Запускаем поток
-    initThread->start();
-
-    // Ждем завершения инициализации
-    initThread->wait();
-    delete initThread;
-}

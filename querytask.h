@@ -11,7 +11,7 @@ class QueryTask : public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    QueryTask(ConnectionPool* pool, const QString& query);
+    QueryTask(ConnectionPool* pool, const QString& query, const QVariantMap& parameters);
 
 signals:
     void queryCompleted(QSqlQuery result);
@@ -19,6 +19,7 @@ signals:
 private:
     ConnectionPool* m_pool;
     QString m_query;
+    const QVariantMap& m_parameters;
     void run() override;
 };
 
